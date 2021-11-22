@@ -1,0 +1,23 @@
+{
+  "name": "dynamic-weather-dashboard",
+  "version": "1.0.0",
+  "description": "Weather app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderjake91/dynamic-weather-dashboard.git"
+  },
+  "author": "coderjake91",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coderjake91/dynamic-weather-dashboard/issues"
+  },
+  "homepage": "https://github.com/coderjake91/dynamic-weather-dashboard#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
