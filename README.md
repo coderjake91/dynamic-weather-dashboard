@@ -8,4 +8,6 @@ Dynamic frontend weather dashboard application that uses the OpenWeather One Cal
 Photo by <a href="https://unsplash.com/@bekmanis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Elvis Bekmanis</a> on <a href="https://unsplash.com/s/photos/svg-lightning?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 Photo by <a href="https://unsplash.com/@robertbock?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Robert Bock</a> on <a href="https://unsplash.com/s/photos/city-night?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+Photo by <a href="https://unsplash.com/@dannyeve?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Daoudi Aissa</a> on <a href="https://unsplash.com/s/photos/weather?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
