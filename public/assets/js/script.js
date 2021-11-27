@@ -86,7 +86,7 @@ const currentWeather = async (weatherData) => {
 		$("#uv").addClass('badge bg-danger');
 	};
 
-	$("#icon").html(`<img src="http://openweathermap.org/img/wn/${icon}@2x.png"><br>${description}</img>`)
+	$("#icon").html(`<img src="https://openweathermap.org/img/wn/${icon}@2x.png"><br>${description}</img>`)
 }
 
 const fiveDayForecast= async (weatherData) => {
@@ -130,7 +130,7 @@ const fiveDayForecast= async (weatherData) => {
 			$(`#uv${day}`).addClass('badge bg-danger');
 		};
 
-		$(`#icon${day}`).html(`${date}<img src="http://openweathermap.org/img/wn/${icon}@2x.png"><br>${description}</img>`)
+		$(`#icon${day}`).html(`${date}<img src="https://openweathermap.org/img/wn/${icon}@2x.png"><br>${description}</img>`)
 	}
 }
 
