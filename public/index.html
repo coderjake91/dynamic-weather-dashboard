@@ -12,7 +12,7 @@
     <div style="display: flex; flex-direction: column;">
         <div class="card w-100 mx-auto">
             <div class="card-body" style="text-align: center;">
-              <h1><b>Discharge Weather</b></h1> <br> Electrifying your Updates
+              <h1><b>Discharge Weather</b></h1>Electrifying your Updates
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightning-fill" viewBox="0 0 16 16">
                 <path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5z"/>
               </svg>
@@ -20,14 +20,17 @@
           </div>
           <div class="card w-100 mx-auto">
             <div class="card-header bg-dark text-white text-center">
-              Display City
+              <h2 id="city"></h2><h3 id="date"></h3>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item border-0">Temp: </li>
-              <li class="list-group-item border-0">Wind: </li>
-              <li class="list-group-item border-0">Humidity: </li>
-              <li class="list-group-item border-0">UV Index: <span class="badge bg-success">X.XX</span> </li>
-            </ul>
+            <div style="display: flex; flex-direction: row;">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item border-0" id="temp"></li>
+                <li class="list-group-item border-0" id="wind"></li>
+                <li class="list-group-item border-0" id="humid"></li>
+                <li class="list-group-item border-0"><span class="badge bg-success" id="uv"></span> </li>
+              </ul>
+              <div style="position: relative; left: 50px; top: 25px;;"id="icon"></div>
+            </div>
           </div>
           <div id="carouselExampleControls" class="carousel slide w-100 mx-auto" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -143,7 +146,8 @@
               </div>
         </div>
     <div>
-      
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
 </body>

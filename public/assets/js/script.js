@@ -6,7 +6,6 @@
 
 */
 
-
 const userCity = 'austin'
 
 //convert city string to geocode (lan, lng)
@@ -21,7 +20,6 @@ const geoCode = async (location) =>{
 		});
 		const data = await response.json();
 		//fetch one city, returned data is an array of length 1 with an object having multiple properties including location
-		console.log(data.results[0]);
 		return data.results[0]
 	} catch (err) {
 		console.error(err);
@@ -49,10 +47,44 @@ const getWeatherData = async (city) => {
 
 }
 
-// const renderDailyWeatherData = async () => {
+//render current userCity weather to the page
+const currentWeather = async (weatherData) => {
+	let { address,
+			//current.dt Requested time, Unix, UTC 
+		  dt } = weatherData.localInfo;
+	let { temp,
+		  wind_speed,
+		  humidity,
+		  uvi,
+		  weather
+		} = weatherData.weatherInfo.current;
+	console.log(address);
 
-// }
+	//format date/time from UTC to a more readable form...
+	let date = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }).format(dt);
+	//convert temp from kelvin to degrees F
+	let tempF = Math.floor((temp - 273.15) * (9/5) + 32);
+	//convert from wind speed in meters/sec to miles/hour
+	let windMPH = Math.floor(wind_speed * 2.23694);
+	let [ weatherArray ] = weather;
+	let { icon, description } = weatherArray;
+	console.log(icon);
+	$("#city").html(`${address}`);
+	$("#date").html(`(${date})`);
+	$("#temp").html(`Temp: ${tempF}&#176 F`);
+	$("#wind").html(`Wind: ${windMPH} MPH`);
+	$("#humid").html(`Humidity: ${humidity}%`);
+	$("#uv").html(`UV Index: ${uvi}`);
+	$("#icon").html(`<img src="http://openweathermap.org/img/wn/${icon}@2x.png">${description}</img>`)
+}
 
 const weatherData = getWeatherData(userCity);
 
 console.log(weatherData);
+
+window.onload = async () => {
+	//get the current weather and local data
+	const weatherData = await getWeatherData(userCity);
+
+	currentWeather(weatherData);
+}
