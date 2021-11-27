@@ -5,8 +5,6 @@
 -> functions that handle data-rendering will be currentWeather(), fiveDayForecast(), citySearchHistory()
 */
 
-const userCity = 'austin'
-
 //convert city string to geocode (lan, lng)
 const geoCode = async (location) =>{
 	try {
@@ -161,6 +159,86 @@ const userCitySearch = async () => {
 	});
 }
 
+const citySearchHistory = async () => {
+		//get saved city data from local storage
+		let savedCities  = JSON.parse(localStorage.getItem("savedCities"));
+		//load stored cities to the page
+		if(!savedCities){
+			savedCities = [];
+			localStorage.setItem("savedCities", JSON.stringify(savedCities));
+	 	} else if(savedCities.length !== 0) {
+		    savedCities = JSON.parse(localStorage.getItem("savedCities"));
+		   
+		   console.log(savedCities);
+
+		//generate the 'saved cities' buttons
+		savedCities.forEach(city => {
+			$('#user-cities').append(`<button id="${city}" type="button" class="btn btn-outline-dark">${city}</button>`);
+		});
+	 	}
+
+
+		//on-click, capture user city input from the input field
+		$("#save-city").on("click", async (event) => {
+			event.preventDefault();
+			
+			//capture user clicked city
+			console.log('save city clicked');
+			let userCity = $("#city-search").val();
+			console.log(userCity);
+			console.log(savedCities);
+			let cityFound = false;
+
+			if(userCity && savedCities.length !== 0) {
+				//check to see if city already exists in localstorage, if not, append the button to the saved cities
+				savedCities.forEach(city => {
+					if(city === userCity){
+						//city has already be saved
+						cityFound = true;
+					}
+				});
+				if(!cityFound){
+					savedCities.push(userCity);
+					localStorage.setItem("savedCities", JSON.stringify(savedCities));
+					//city save- button logic here...
+					$('#user-cities').append(`<button id="${userCity}" type="button" class="btn btn-outline-dark">${userCity}</button>`);
+					window.alert(`${userCity} has been added to your Saved Cities!`);
+				} else {
+					window.alert(`${userCity} already exists in your Saved Cities!`);
+				}
+			} else if (userCity !== "" && savedCities.length == 0) {
+				savedCities.push(userCity);
+				localStorage.setItem("savedCities", JSON.stringify(savedCities));
+				//city save- button logic here...
+				$('#user-cities').append(`<button id="${userCity}" type="button" class="btn btn-outline-dark">${userCity}</button>`)
+				window.alert(`${userCity} has been added to your Saved Cities!`);
+			} else {
+				window.alert("Please Enter a City!");
+			}
+		});
+
+		$("#user-cities").on("click", async (event) => {
+			event.preventDefault();
+
+			console.log($(event.target).attr("id"));
+			userCityChoice = $(event.target).attr("id");
+			$("#city-search").val(`${userCityChoice}`);
+			if(userCityChoice) {
+				try {
+					let weatherData = await getWeatherData(userCityChoice);
+					currentWeather(weatherData);
+					fiveDayForecast(weatherData);
+				} catch (err) {
+					console.log(err);
+				}
+			} else {
+				window.alert("Please Enter a City!");
+			}
+		});
+		
+}
+
 window.onload = async () => {
 	userCitySearch();
+	citySearchHistory();
 }
