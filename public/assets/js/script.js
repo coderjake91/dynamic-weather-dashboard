@@ -28,6 +28,7 @@ const geoCode = async (location) =>{
 
 //get location-based weather data from openweather.org
 const getWeatherData = async (city) => {
+	console.log(city);
 	let locationData = await geoCode(city);
 
 	let { lat, lng } = locationData.location;
@@ -78,13 +79,26 @@ const currentWeather = async (weatherData) => {
 	$("#icon").html(`<img src="http://openweathermap.org/img/wn/${icon}@2x.png">${description}</img>`)
 }
 
-const weatherData = getWeatherData(userCity);
+const userCitySearch = async () => {
+	//on-click, capture user city input from the input field
+	$("#button-addon2").on("click", async (event) => {
+		event.preventDefault();
 
-console.log(weatherData);
+		let userCity = $("#city-search").val();
+		console.log(userCity);
+		if(userCity) {
+			try {
+				let weatherData = await getWeatherData(userCity);
+				currentWeather(weatherData);
+			} catch (err) {
+				console.log(err);
+			}
+		} else {
+			window.alert("Please Enter a City!");
+		}
+	});
+}
 
 window.onload = async () => {
-	//get the current weather and local data
-	const weatherData = await getWeatherData(userCity);
-
-	currentWeather(weatherData);
+	userCitySearch();
 }
