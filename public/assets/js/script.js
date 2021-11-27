@@ -25,7 +25,6 @@ const geoCode = async (location) =>{
 
 //get location-based weather data from openweather.org
 const getWeatherData = async (city) => {
-	console.log(city);
 	let locationData = await geoCode(city);
 
 	let { lat, lng } = locationData.location;
@@ -47,7 +46,6 @@ const getWeatherData = async (city) => {
 
 //render current userCity weather to the page
 const currentWeather = async (weatherData) => {
-	console.log(weatherData);
 	let { address } = weatherData.localInfo;
 	let { temp,
 		  wind_speed,
@@ -68,15 +66,14 @@ const currentWeather = async (weatherData) => {
 	let windMPH = Math.floor(wind_speed * 2.23694);
 	let [ weatherArray ] = weather;
 	let { icon, description } = weatherArray;
-	console.log(icon);
 	$("#city").html(`${address}`);
 	$("#date").html(`(${date})`);
 	$("#temp").html(`Temp: ${tempF}&#176 F`);
 	$("#wind").html(`Wind: ${windMPH} MPH`);
 	$("#humid").html(`Humidity: ${humidity}%`);
-
-	console.log(uvi);
-
+	
+	//remove existing uv-status indicator
+	$(`#uv`).removeClass();
 	//add uv-status indicators
 	if(uvi <= 2 ){
 		$("#uv").html(`UV Index: ${uvi}`);
@@ -95,9 +92,7 @@ const currentWeather = async (weatherData) => {
 const fiveDayForecast= async (weatherData) => {
 	let dailyWeather = weatherData.weatherInfo.daily;
 
-	console.log(dailyWeather);
-
-	for(let day = 0; day < 5; day++) {
+	for(let day = 1; day < 6; day++) {
 		//destructure daily forecast parameters
 		let { temp,
 			wind_speed,
@@ -111,7 +106,6 @@ const fiveDayForecast= async (weatherData) => {
 
 		//format date/time from UTC to a more readable form...
 		let date = new Intl.DateTimeFormat('en-US', {dateStyle: 'short'}).format(epochUTC);
-		console.log(date);
 		//convert temp from kelvin to degrees F
 		let tempF = Math.floor((temp.day - 273.15) * (9/5) + 32);
 		//convert from wind speed in meters/sec to miles/hour
@@ -122,6 +116,8 @@ const fiveDayForecast= async (weatherData) => {
 		$(`#wind${day}`).html(`Wind: ${windMPH} MPH`);
 		$(`#humid${day}`).html(`Humidity: ${humidity}%`);
 
+		//remove existing uv-status indicator
+		$(`#uv${day}`).removeClass();
 		//add uv-status indicators
 		if(uvi <= 2 ){
 			$(`#uv${day}`).html(`UV Index: ${uvi}`);
